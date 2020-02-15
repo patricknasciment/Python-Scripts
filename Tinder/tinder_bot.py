@@ -1,5 +1,6 @@
 from selenium import webdriver
 from time import sleep
+from keys import pas, email
 
 class TinderBot():
     def __init__(self):
@@ -17,12 +18,11 @@ class TinderBot():
         # Switch to login popup
         base_window = self.driver.window_handles[0]
         popup = self.driver.switch_to.window(self.driver.window_handles[1])
-
         email_in = self.driver.find_element_by_xpath('//*[@id="email"]')
-        email_in.send_keys('')
+        email_in.send_keys('email')
         
         pw_in = self.driver.find_element_by_xpath('//*[@id="pass"]')
-        pw_in.send_keys('')
+        pw_in.send_keys('pas')
 
         btn_login = self.driver.find_element_by_xpath('//*[@id="u_0_0"]')
         btn_login.click()
@@ -54,20 +54,25 @@ class TinderBot():
                 self.like()
             except Exception:
                 try:
-                    self.close_match_popup()
-                except Exception:
                     self.close_popup()
+                except Exception:
+                    self.close_match_popup()
+         
 
-    def close_match_popup():
+
+    def close_match_popup(self):
         close_mach_popup = bot.driver.find_element_by_xpath('//*[@id="modal-manager-canvas"]/div/div/div[1]/div/div[3]/a')
         close_mach_popup.click()
-
-    def close_popup():
+    
+    def close_popup(self):
+        close_popup = bot.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div[2]/button[2]')
+        close_popup.click()    
         
 
 
 bot = TinderBot()
 bot.login()
+
 
 
 
